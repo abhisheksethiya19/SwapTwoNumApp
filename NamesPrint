@@ -1,0 +1,25 @@
+using System;
+using System.Text;
+using System.Threading.Tasks;
+
+public class Practice
+{
+    public static void Main()
+    {
+        Console.WriteLine("Enter Number");
+        int n = Convert.ToInt32(Console.ReadLine());
+        string[] names = new string[n];
+        Console.WriteLine("Enter name");
+        for(int i = 0; i< n ; i++)
+        {
+            names[i] = Console.ReadLine();
+        }
+        Console.WriteLine("-------");
+        Console.WriteLine("The names you entered:");
+        for(int j = 0; j <names.Length; j++)
+        
+        {
+            Console.WriteLine(names[j]);
+        }
+    }
+}
