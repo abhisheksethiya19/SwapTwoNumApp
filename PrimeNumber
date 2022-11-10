@@ -1,0 +1,28 @@
+using System.Text;
+using System.Threading.Tasks;
+
+namespace prime
+{
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Enter Number");
+        int n=Convert.ToInt32(Console.ReadLine());
+        bool pn= true;
+        for(int i = 2;  i< n/2 ;i++)
+        {
+            if (i%2 == 0)
+            {
+                Console.WriteLine("It's Not Prime");
+                pn=false;
+                break;
+            }
+        }
+        if (pn)
+        {
+            Console.WriteLine("It is Prime");
+        }
+    }
+}
+}
