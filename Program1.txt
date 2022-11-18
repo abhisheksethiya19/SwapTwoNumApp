@@ -1,0 +1,230 @@
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace ADO_Connected_SP
+{
+    class Program
+    {
+        static string ConnectionString
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["conStr_DNC_OL"].ConnectionString;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            char choice;
+            Console.WriteLine("----- Customer Mgmt Application-----");
+
+            do
+            {
+                Menu();
+                int operation;
+                operation = Convert.ToInt32(Console.ReadLine());
+                switch (operation)
+                {
+                    case 1:
+                        
+                        InsertCustomer();
+                        break;
+                    case 2:
+                        
+                        UpdateCustomer();
+                        break;
+                    case 3:
+                        
+                        DeleteCustomer();
+                        break;
+                    case 4:
+                        
+                        SearchCustomer();
+                        break;
+                    case 5:
+                        
+                        ListCustomer();
+                        break;
+                    case 6:
+                       
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Please select the right option.");
+                        break;
+                }
+                Console.WriteLine("Do you want to continue? Press 'Y' to continue or 'N' to exit");
+                choice = Convert.ToChar(Console.ReadLine());
+            } while (choice == 'Y');
+
+        }
+
+        static void InsertCustomer()
+        {
+            int id;
+            string name;
+            string address;
+            string contact;
+            //
+            Console.WriteLine("----- Insert Customer -----");
+            Console.WriteLine("Enter CustomerId:");
+            id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter CustomerName:");
+            name = Console.ReadLine();
+            Console.WriteLine("Enter CustomerAddress:");
+            address = Console.ReadLine();
+            Console.WriteLine("Enter Customer Contact number:");
+            contact = Console.ReadLine();
+          
+            SqlConnection objSqlCon = new SqlConnection(Program.ConnectionString);
+            SqlCommand objSqlCom = new SqlCommand("InsertCustomerData", objSqlCon);
+            objSqlCom.CommandType = System.Data.CommandType.StoredProcedure;
+           
+            objSqlCom.Parameters.AddWithValue("@ID", id);
+            objSqlCom.Parameters.AddWithValue("@Name", name);
+            objSqlCom.Parameters.AddWithValue("@address", address);
+            objSqlCom.Parameters.AddWithValue("@contact", contact);
+        
+            objSqlCon.Open();
+            objSqlCom.ExecuteNonQuery();
+            Console.WriteLine("Customer record added successfully.");
+            objSqlCon.Close();
+        }
+
+        static void UpdateCustomer()
+        {
+            int id;
+            string name;
+            string address;
+            string contact;
+            //
+            Console.WriteLine("----- Insert Customer -----");
+            Console.WriteLine("Enter CustomerId:");
+            id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter CustomerName:");
+            name = Console.ReadLine();
+            Console.WriteLine("Enter CustomerAddress:");
+            address = Console.ReadLine();
+            Console.WriteLine("Enter Customer Contact number:");
+            contact = Console.ReadLine();
+            //
+            SqlConnection objSqlCon = new SqlConnection(Program.ConnectionString);
+            SqlCommand objSqlCom = new SqlCommand("UpdateCustomerData", objSqlCon);
+            objSqlCom.CommandType = System.Data.CommandType.StoredProcedure;
+            //
+            objSqlCom.Parameters.AddWithValue("@ID", id);
+            objSqlCom.Parameters.AddWithValue("@Name", name);
+            objSqlCom.Parameters.AddWithValue("@address", address);
+            objSqlCom.Parameters.AddWithValue("@contact", contact);
+            //
+            objSqlCon.Open();
+            objSqlCom.ExecuteNonQuery();
+            Console.WriteLine("Customer record updated successfully.");
+            objSqlCon.Close();
+        }
+
+        static void DeleteCustomer()
+        {
+            int id;
+            //
+            Console.WriteLine("----- Delete Customer -----");
+            Console.WriteLine("Enter Id:");
+            id = Convert.ToInt32(Console.ReadLine());
+            //
+            SqlConnection objSqlCon = new SqlConnection(Program.ConnectionString);
+            SqlCommand objSqlCom = new SqlCommand("DeleteCustomer", objSqlCon);
+            objSqlCom.CommandType = System.Data.CommandType.StoredProcedure;
+            
+            objSqlCom.Parameters.AddWithValue("@ID", id);
+           
+            objSqlCon.Open();
+            objSqlCom.ExecuteNonQuery();
+            Console.WriteLine("Customer record deleted successfully.");
+            objSqlCon.Close();
+        }
+
+        static void SearchCustomer()
+        {
+            int id;
+            string name;
+            string address;
+            string contact;
+            //
+            Console.WriteLine("----- Search Customer -----");
+            Console.WriteLine("Enter Id:");
+            id = Convert.ToInt32(Console.ReadLine());
+            //
+            SqlConnection objSqlCon = new SqlConnection(Program.ConnectionString);
+            SqlCommand objSqlCom = new SqlCommand("SearchCustomerData", objSqlCon);
+            objSqlCom.CommandType = System.Data.CommandType.StoredProcedure;
+            //
+            SqlParameter objSqlParam_ID = new SqlParameter("@ID", System.Data.SqlDbType.Int);
+            SqlParameter objSqlParam_Name = new SqlParameter("@Name", System.Data.SqlDbType.VarChar, 30);
+            SqlParameter objSqlParam_address = new SqlParameter("@address", System.Data.SqlDbType.VarChar,30);
+            SqlParameter objSqlParam_contact = new SqlParameter("@contact", System.Data.SqlDbType.VarChar,10);
+            //
+            objSqlParam_ID.Direction = System.Data.ParameterDirection.Input;
+            objSqlParam_Name.Direction = System.Data.ParameterDirection.Output;
+            objSqlParam_address.Direction = System.Data.ParameterDirection.Output;
+            objSqlParam_contact.Direction = System.Data.ParameterDirection.Output;
+            //
+            objSqlParam_ID.Value = id;
+            //
+            objSqlCom.Parameters.Add(objSqlParam_ID);
+            objSqlCom.Parameters.Add(objSqlParam_Name);
+            objSqlCom.Parameters.Add(objSqlParam_address);
+            objSqlCom.Parameters.Add(objSqlParam_contact);
+            //
+            objSqlCon.Open();
+            int flag=objSqlCom.ExecuteNonQuery();
+            if (flag > 0)
+            {
+
+                name = objSqlParam_Name.Value.ToString();
+                address = objSqlParam_address.Value.ToString();
+                contact = objSqlParam_contact.Value.ToString();
+                //
+                Console.WriteLine("Customer Id: {0}, Customer Name: {1},Customer Address: {2} and Customer Contact: {3}",
+                    id, name, address, contact);
+                objSqlCon.Close();
+            }
+
+            else
+            {
+                Console.WriteLine("customer not exists");
+            }
+        }
+
+        static void ListCustomer()
+        {
+            Console.WriteLine("----- List Customer -----");
+            //
+            SqlConnection objSqlCon = new SqlConnection(Program.ConnectionString);
+            SqlCommand objSqlCom = new SqlCommand("GetCustomers", objSqlCon);
+            objSqlCom.CommandType = System.Data.CommandType.StoredProcedure;
+            //
+            objSqlCon.Open();
+            //
+            SqlDataReader objSqlDR = objSqlCom.ExecuteReader();
+            
+            
+            while (objSqlDR.Read())
+            {
+                Console.WriteLine("Customer Id: {0}, Customer Name: {1},Address: {2} and contact: {3}",
+                objSqlDR[0], objSqlDR[1], objSqlDR[2], objSqlDR[3]);
+            }
+            
+           
+        }
+
+        static void Menu()
+        {
+            Console.WriteLine("Press 1 to Add Customer, 2 to Update Customer, 3 to Delete customer, 4 to Search customer, 5 to List customer and 6 to Exit.");
+        }
+
+    }
+}
+

@@ -1,0 +1,510 @@
+--------------EmployeeMgmt LINQ Assignment------------
+
+
+using EmployeeMgmt;
+using System.Collections.Generic;
+
+class Program
+{
+
+
+public static void Main(string[] args)
+    {
+ 
+        List<Employee> employees = new List<Employee>()
+       {
+            new Employee(){ employeeid=1001,
+            firstName="Malcolm",
+            lastName="Daruwalla",
+            title="Manager",
+            dob=DateOnly.Parse("16/11/1984"),
+            doj=DateOnly.Parse("8/6/2011"),
+            city="Mumbai"
+
+        },
+
+         new Employee(){ employeeid=1002,
+            firstName="Asdin",
+            lastName="Dhalla",
+            title="asstManager",
+            dob=DateOnly.Parse("20/08/1984"),
+            doj=DateOnly.Parse("7/7/2012"),
+            city="Mumbai",
+
+        },
+
+          new Employee(){ employeeid=1003,
+            firstName="Madhavi",
+            lastName="Oza",
+            title="Consultant",
+            dob=DateOnly.Parse("14/11/1987"),
+            doj=DateOnly.Parse("12/4/2015"),
+            city="Pune",
+
+        },
+           new Employee(){ employeeid=1004,
+            firstName="Saba",
+            lastName="Shaikh",
+            title="SE",
+            dob=DateOnly.Parse("03/06/1990"),
+            doj=DateOnly.Parse("02/06/2016"),
+            city="Mumbai",
+
+        },
+            new Employee(){ employeeid=1005,
+            firstName="Nazia",
+            lastName="Shaikh",
+            title="SE",
+            dob=DateOnly.Parse("08/03/1991"),
+            doj=DateOnly.Parse("2/2/2016"),
+            city="Pune",
+
+        },
+             new Employee(){ employeeid=1006,
+            firstName="Amit",
+            lastName="Pathak",
+            title="Consultant",
+            dob=DateOnly.Parse("07/11/1989"),
+            doj=DateOnly.Parse("8/8/2014"),
+            city="Chennai",
+
+        },
+              new Employee(){ employeeid=1007,
+            firstName="Vijay",
+            lastName="Natrajan",
+            title="Consultant",
+            dob=DateOnly.Parse("02/12/1989"),
+            doj=DateOnly.Parse("01/06/2015"),
+            city="Mumbai",
+
+        },
+               new Employee(){ employeeid=1008,
+            firstName="Rahul",
+            lastName="Dubey",
+            title="Associate",
+            dob=DateOnly.Parse("11/11/1993"),
+            doj=DateOnly.Parse("06/11/2014"),
+            city="Chennai",
+
+        },
+                new Employee(){ employeeid=1009,
+            firstName="Suresh",
+            lastName="Mistry",
+            title="Associate",
+            dob=DateOnly.Parse("12/08/1992"),
+            doj=DateOnly.Parse("03/12/2014"),
+            city="Chennai",
+
+        },
+                 new Employee(){ employeeid=1010,
+            firstName="Sumit",
+            lastName="Shah",
+            title="Manager",
+            dob=DateOnly.Parse("12/04/1991"),
+            doj=DateOnly.Parse("02/01/2016"),
+            city="Pune",
+
+        }
+
+    };
+
+        // ShowAllEmployees(employees);
+        // NotMumbaiLocation(employees);
+        // AsstManagerTitle(employees);
+        // LastNameStartWithS(employees);
+        // JoinedBefore(employees);
+        // DobAfter(employees);
+        // ConsultantAndAssociate(employees);
+        // TotalEmployees(employees);
+        // ChennaiPeople(employees);
+        // HightestEmployeeId(employees);
+        // JoinedAfter(employees);
+        // DesignationNotAssociate(employees);
+        TotalEmployeesBasedOnCity(employees);
+
+
+    }
+
+    public static  void ShowAllEmployees(List<Employee> empList)
+    {
+        var employees = from emp in empList
+                        select emp;
+        foreach(var emp in employees)
+        {
+            
+                Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id="+emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth"+ emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+                        
+
+
+
+
+    }
+
+    public static void NotMumbaiLocation(List<Employee> empList)
+    {
+
+        var employees = from emp in empList
+                        where emp.city != "Mumbai"
+                        select emp;
+
+                     
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void AsstManagerTitle(List<Employee> empList)
+    {
+
+        var employees = from emp in empList
+                        where emp.title== "asstManager"
+                        select emp;
+
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void LastNameStartWithS(List<Employee> empList)
+    {
+
+        var employees = from emp in empList
+                        where emp.lastName.StartsWith("S")
+                        select emp;
+
+
+     /*   var queryResults =
+               from n in names
+               where n.StartsWith("S")
+               select n;
+     */
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void JoinedBefore(List<Employee> empList)
+    {
+         DateOnly tempDate;
+
+        tempDate=DateOnly.Parse("01/01/2015");
+
+        var employees = from emp in empList
+                        where emp.doj<tempDate
+                        select emp;
+
+
+        /*   var queryResults =
+                  from n in names
+                  where n.StartsWith("S")
+                  select n;
+        */
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void DobAfter(List<Employee> empList)
+    {
+        DateOnly tempDate;
+
+        tempDate = DateOnly.Parse("01/01/1990");
+
+        var employees = from emp in empList
+                        where emp.dob > tempDate
+                        select emp;
+
+
+        /*   var queryResults =
+                  from n in names
+                  where n.StartsWith("S")
+                  select n;
+        */
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void ConsultantAndAssociate(List<Employee> empList)
+    {
+        
+
+        var employees = from emp in empList
+                        where emp.title=="Consultant" ||  emp.title == "Associate"
+
+                        select emp;
+
+
+        /*   var queryResults =
+                  from n in names
+                  where n.StartsWith("S")
+                  select n;
+        */
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void TotalEmployees(List<Employee> empList)
+    {
+       
+
+        int employees = (from emp in empList
+
+                        select emp).Count();
+
+
+        /*   var queryResults =
+                  from n in names
+                  where n.StartsWith("S")
+                  select n;
+        */
+        Console.WriteLine(employees);
+    }
+    public static void ChennaiPeople(List<Employee> empList)
+    {
+
+
+        var employees = from emp in empList
+                        where emp.city=="Chennai"
+
+                        select emp;
+
+
+        /*   var queryResults =
+                  from n in names
+                  where n.StartsWith("S")
+                  select n;
+        */
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void HightestEmployeeId(List<Employee> empList)
+    {
+
+        int res = empList.Max(a => a.employeeid);
+        Console.WriteLine("Max_id" + " "+res);
+    }
+    public static void JoinedAfter(List<Employee> empList)
+    {
+        DateOnly tempDate;
+
+        tempDate = DateOnly.Parse("01/01/2015");
+
+        var employees = from emp in empList
+                        where emp.doj> tempDate
+                        select emp;
+
+
+        /*   var queryResults =
+                  from n in names
+                  where n.StartsWith("S")
+                  select n;
+        */
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void DesignationNotAssociate(List<Employee> empList)
+    {
+
+
+        var employees = from emp in empList
+                        where  emp.title != "Associate"
+
+                        select emp;
+
+
+        /*   var queryResults =
+                  from n in names
+                  where n.StartsWith("S")
+                  select n;
+        */
+
+        foreach (var emp in employees)
+        {
+
+            Console.WriteLine("****************Data of employee**************8");
+            Console.WriteLine("Employee Id=" + emp.employeeid);
+            Console.WriteLine("Employee FirstName=" + emp.firstName);
+            Console.WriteLine("Employee LastName=" + emp.lastName);
+            Console.WriteLine("Employee Title=" + emp.title);
+            Console.WriteLine("Date of birth" + emp.dob);
+            Console.WriteLine("Date of joining" + emp.doj);
+            Console.WriteLine("City" + emp.city);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+
+        }
+    }
+    public static void TotalEmployeesBasedOnCity(List<Employee> empList)
+    {
+
+
+        int employees = (from emp in empList
+
+                         select emp).Count();
+
+
+        /*
+         var players = new List<Player> {
+    new Player { Name = "Alex", Team = "A" },
+    new Player { Name = "Anna", Team = "A" },
+    new Player { Name = "Luke", Team = "L" },
+    new Player { Name = "Lucy", Team = "L" },
+    new Player { Name = "Mike", Team = "M" },
+};
+
+var playersPerTeam =
+    from player in players
+    group player by player.Team into playerGroup
+    select new
+    {
+        Team = playerGroup.Key,
+        Count = playerGroup.Count(),
+    }; 
+         */
+
+        Console.WriteLine(employees);
+    }
+
+}
